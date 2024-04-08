@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
+    <title>Корзина</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+</head>
+
+{% include 'header.html' %}
+<body>
+
+<div class="cart-container">
+    <h2>Корзина</h2>
+    <hr class="line-top">
+    {% for item in cart_items %}
+    <div class="cart-item">
+        <div class="info" style="margin-right: 25px;" onclick="redirectToProductPage('{{ item.product.article }}')">
+            <div class="name">{{ item.product.name }}</div>
+            <div class="size">Размер: {{ item.size }}</div>
+        </div>
+        <div class="quantity">
+            <form action="{% url 'cart:update_cart' item.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="action" value="decrement">-</button>
+                <span>{{ item.quantity }}</span>
+                <button type="submit" name="action" value="increment">+</button>
+            </form>
+        </div>
+        <div>{{ item.product.price }} ₽</div>
+        <div class="delete">
+            <form action="{% url 'cart:delete_item' item.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    <img src="{% static 'img/delete.png' %}" alt="Delete" width="16" height="16">
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    <hr class="line-bottom">
+    <form method="post">
+        {% csrf_token %}
+        {% for form in promocode_form %}
+        {{ form }}
+
+        <button type="submit" name="action" value="apply_promocode">Применить</button>
+    </form>
+    <p style="color: brown">{{ promocode_response }}</p>
+    {% endfor %}
+    <div class="price">
+        Cумма: {{ total_price }} ₽
+    </div>
+
+    <div class="customer-info">
+    <form method="post" class="customer-info-form">
+        {% csrf_token %}
+        <h2>Контакты</h2>
+        {% for form in contact_info %}
+        <div class="form-group">
+            {{ form.errors }}
+            <label>{{ form.label }}:</label>
+            {{ form }}
+        </div>
+        {% endfor %}
+        {% csrf_token %}
+        <h2>Доставка</h2>
+        {% for form in delivery_info %}
+        <div class="form-group">
+            {{ form.errors }}
+            <label>{{ form.label }}:</label>
+            {{ form }}
+        </div>
+        {% endfor %}
+        <div id="delivery-form">
+            <div class="radio-container">
+                <label style="font-weight: bold; margin-bottom: -10px;">Способы доставки:</label><br>
+                {% for delivery in deliveries %}
+                <input type="radio" id="option{{ delivery.id }}" name="delivery" value="{{ delivery.id }}">
+                <label for="option{{ delivery.id }}">{{ delivery.name }} - {{ delivery.price }} ₽</label><br>
+                {% endfor %}
+            </div>
+
+            <div id="total-price-info" style="margin-top: 10px;" class="total-price">
+                Всего: <span id="total-price" data-base-price="{{ total_price }}"></span> ₽
+            </div>
+        </div>
+        <button type="submit" value="new_order" class="btn btn-primary">Оформить заказ</button>
+    </form>
+    </div>
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/cart.js' %}"></script>
+
+</body>
+</html>

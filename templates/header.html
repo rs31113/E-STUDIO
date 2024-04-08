@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+</head>
+<body>
+
+
+<header>
+    <div class="left-btn-container">
+        <a href="{% url 'about:about' %}" class="header-link">О нас</a>
+    </div>
+
+    <a href="{% url 'shop:catalog' %}" class="header-link">
+        <img class="logo" src="{% static 'img/logo.png' %}" alt="Evolve Logo">
+    </a>
+
+    <div class="right-btn-container">
+
+        <a href="{% url 'cart:cart' %}" class="header-link">
+            <span class="cart-items-count">{{ cart_items_count }}</span>
+            <img class="cart" src="{% static 'img/cart.png' %}" alt="cart">
+        </a>
+    </div>
+</header>
+
+
+</body>
+</html>

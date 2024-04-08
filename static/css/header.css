@@ -1,0 +1,45 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.left-btn-container,
+.right-btn-container {
+    width: 100px;
+    text-align: center;
+}
+
+.header-link {
+    display: inline-block;
+    margin: 0;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-family: Courier New, monospace;
+}
+
+.header-link:hover {
+    color: gray;
+    transition: color 0.3s ease;
+}
+
+.logo {
+    height: 55px;
+}
+
+.cart {
+    height: 32px;
+}
+
+.cart-items-count {
+    font-size: 15px;
+
+}

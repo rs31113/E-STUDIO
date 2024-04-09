@@ -120,3 +120,7 @@ CKEDITOR_5_CONFIGS = {
         "width": 800,
     },
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://evolve-production-d419.up.railway.app"
+]

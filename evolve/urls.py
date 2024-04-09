@@ -6,4 +6,5 @@ urlpatterns = [
     path("about/", include("about.urls", namespace="about")),
     path("cart/", include("cart.urls", namespace="cart")),
     path("admin/", admin.site.urls),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
 ]

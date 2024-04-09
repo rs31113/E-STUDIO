@@ -28,7 +28,8 @@ class AddToCart(View):
 
 class ViewCart(View):
     def get(self, request):
-        cart_items = CartItem.objects.all()
+        session_id = request.session.session_key
+        cart_items = CartItem.objects.filter(session_id=session_id)
         if cart_items.count() == 0:
             return render(request, "cart/empty_cart.html")
         deliveries = Delivery.objects.all()
@@ -53,7 +54,8 @@ class ViewCart(View):
             promocode_form = cart.forms.PromocodeForm(request.POST)
             if promocode_form.is_valid():
                 promocode = promocode_form.cleaned_data["code"]
-                cart_items = CartItem.objects.all()
+                session_id = request.session.session_key
+                cart_items = CartItem.objects.filter(session_id=session_id)
                 deliveries = Delivery.objects.all()
                 contact_info_form = cart.forms.ContactInfoForm()
                 delivery_info_form = cart.forms.DeliveryInfoForm()
@@ -97,7 +99,8 @@ class ViewCart(View):
                 delivery_id = request.POST.get("delivery")
                 return render(request, "cart/order_success.html")
 
-            cart_items = CartItem.objects.all()
+            session_id = request.session.session_key
+            cart_items = CartItem.objects.filter(session_id=session_id)
             deliveries = Delivery.objects.all()
             promocode_form = cart.forms.PromocodeForm()
             total_price = sum(item.product.price * item.quantity for item in cart_items)

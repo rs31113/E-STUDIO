@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     "shop",
     "about",
     "cart",
+    "main",
+    "gallery",
     "django_ckeditor_5",
 ]
 
@@ -124,3 +126,12 @@ CKEDITOR_5_CONFIGS = {
 CSRF_TRUSTED_ORIGINS = [
     "https://evolve-production-d419.up.railway.app"
 ]
+
+
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "toolbar": ["heading", "|", "bold", "italic", "link",
+                    "bulletedList", "numberedList", "blockQuote", "imageUpload", ],
+
+    }
+}

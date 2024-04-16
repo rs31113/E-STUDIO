@@ -5,6 +5,7 @@
     min-height: 200px;
     width: auto;
     height: auto;
+    border-radius: 7px;
 }
 
 html, body {
@@ -27,6 +28,7 @@ html, body {
 
 .card.h-100 {
     border: none;
+    border-radius: 7px;
 }
 
 .card-title,

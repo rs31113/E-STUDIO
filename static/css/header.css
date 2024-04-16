@@ -39,6 +39,11 @@ header {
     height: 32px;
 }
 
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
 .cart-items-count {
     font-size: 15px;
 

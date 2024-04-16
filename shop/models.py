@@ -1,10 +1,11 @@
 from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField()
-    description = models.TextField()
+    description = CKEditor5Field(config_name="default")
     article = models.CharField(max_length=50, unique=True)
     sizes = models.ManyToManyField("Size", through="ProductSize")
     photos = models.ManyToManyField("Photo")

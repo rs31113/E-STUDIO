@@ -1,7 +1,9 @@
 from django.contrib import admin
-from cart.models import Delivery
-from cart.models import Promocode
+import cart.models
 
 
-admin.site.register(Delivery)
-admin.site.register(Promocode)
+admin.site.register(cart.models.Delivery)
+admin.site.register(cart.models.Promocode)
+
+
+__all__ = ()

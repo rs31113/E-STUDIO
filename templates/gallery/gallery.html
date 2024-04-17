@@ -12,9 +12,34 @@
 {% include 'header.html' %}
 <body>
 
-<div class="container">
-    <p style="font-weight: bold;">GALLERY</p>
+
+<div class="gallery-container">
+{% for collection in gallery %}
+<div class="collection-container">
+    <h2 class="text-center">{{ collection.name }}</h2>
+    <div class="row photo-grid">
+        {% for photo in collection.photos.all %}
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="photo">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="full-screen-trigger">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+{% endfor %}
+</div>
+
+<div id="modal-container" class="modal-container">
+    <span class="close-btn" id="close-btn">&#10007;</span>
+    <div id="modal-content" class="modal-content">
+        <img src="" alt="" id="modal-image">
+        <span class="prev-btn" id="prev-btn">&#8592;</span>
+        <span class="next-btn" id="next-btn">&#8594;</span>
+    </div>
+</div>
+
+<script src="{% static 'js/gallery.js' %}"></script>
 
 </body>
 {% include 'footer.html' %}

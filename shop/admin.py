@@ -18,3 +18,6 @@ class ProductAdmin(django.contrib.admin.ModelAdmin):
 django.contrib.admin.site.register(shop.models.Product, ProductAdmin)
 django.contrib.admin.site.register(shop.models.Size)
 django.contrib.admin.site.register(shop.models.Photo)
+
+
+__all__ = ()

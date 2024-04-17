@@ -25,3 +25,6 @@ class Promocode(models.Model):
     value = models.PositiveIntegerField(default=0)
     limit = models.PositiveIntegerField(default=1)
     expiration_date = models.DateField()
+
+
+__all__ = ()

@@ -1,5 +1,8 @@
-from django.views.generic import TemplateView
+import django.views
 
 
-class MainView(TemplateView):
+class MainView(django.views.generic.TemplateView):
     template_name = "main.html"
+
+
+__all__ = ()

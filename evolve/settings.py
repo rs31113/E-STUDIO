@@ -126,9 +126,8 @@ CKEDITOR_5_CONFIGS = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://evolve-production-d419.up.railway.app"
+    "https://evolve.up.railway.app",
 ]
-
 
 CKEDITOR_5_CONFIGS = {
     "default": {

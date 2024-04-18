@@ -10,6 +10,10 @@ from django.utils import timezone
 class AddToCart(View):
     def post(self, request, article):
         size = request.POST.get("size")
+
+        if not request.session.session_key:
+            request.session.create()
+
         session_id = request.session.session_key
 
         product = get_object_or_404(Product, article=article)

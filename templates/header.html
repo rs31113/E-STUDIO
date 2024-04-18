@@ -10,8 +10,13 @@
 
 
 <header>
+    <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+        <span style="margin-left: -35px;">&#9776;</span>
+    </div>
+
     <div class="left-btn-container">
         <a href="{% url 'shop:catalog' %}" class="header-link">SHÖP</a>
+        <a href="{% url 'gallery:gallery' %}" class="header-link">GALLERY</a>
     </div>
 
     <a href="{% url 'main:main' %}" class="header-link logo">
@@ -19,7 +24,6 @@
     </a>
 
     <div class="right-btn-container">
-
         <a href="{% url 'cart:cart' %}" class="header-link">
             <span class="cart-items-count">{{ cart_items_count }}</span>
             <img class="cart" src="{% static 'img/cart.png' %}" alt="cart">
@@ -27,6 +31,16 @@
     </div>
 </header>
 
+<div id="overlay">
+    <header></header>
+    <div id="menu" class="menu">
+        <a href="{% url 'shop:catalog' %}" class="header-link">SHÖP</a>
+        <a href="{% url 'gallery:gallery' %}" class="header-link">GALLERY</a>
+    </div>
+    <div class="menu-footer">{% include 'footer.html' %}</div>
+</div>
+
+<script src="{% static 'js/header.js' %}"></script>
 
 </body>
 </html>

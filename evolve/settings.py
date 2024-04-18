@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     "cart",
     "main",
     "gallery",
+    "faq",
+    "terms",
     "django_ckeditor_5",
 ]
 

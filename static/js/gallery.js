@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
         modalImage.src = photoTriggers[currentPhotoIndex].getAttribute('src');
     });
 
-    // Закрытие модального окна при нажатии на клавишу Escape
     document.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowLeft') {
             currentPhotoIndex = (currentPhotoIndex - 1 + photoTriggers.length) % photoTriggers.length;

@@ -23,7 +23,6 @@
             <div class="size">Размер: {{ item.size }}</div>
         </div>
         <div class="quantity-price">
-            <div style="margin-bottom: 7px;">{{ item.product.price }} ₽</div>
             <div class="quantity">
                 <form action="{% url 'cart:update_cart' item.id %}" method="post">
                     {% csrf_token %}
@@ -32,6 +31,7 @@
                     <button type="submit" name="action" value="increment">+</button>
                 </form>
             </div>
+            <div style="margin-top: 7px;">{{ item.product.price }} ₽</div>
         </div>
         <div class="delete">
             <form action="{% url 'cart:delete_item' item.id %}" method="post">

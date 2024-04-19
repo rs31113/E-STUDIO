@@ -78,6 +78,7 @@ class PromocodeForm(django.forms.Form):
         widget=django.forms.TextInput(
             attrs={
                 "placeholder": "Промокод",
+                "class": "promocode-form",
             }
         ),
     )

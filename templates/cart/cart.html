@@ -22,15 +22,17 @@
             <div class="name">{{ item.product.name }}</div>
             <div class="size">Размер: {{ item.size }}</div>
         </div>
-        <div class="quantity">
-            <form action="{% url 'cart:update_cart' item.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" name="action" value="decrement">-</button>
-                <span>{{ item.quantity }}</span>
-                <button type="submit" name="action" value="increment">+</button>
-            </form>
+        <div class="quantity-price">
+            <div style="margin-bottom: 7px;">{{ item.product.price }} ₽</div>
+            <div class="quantity">
+                <form action="{% url 'cart:update_cart' item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="decrement">-</button>
+                    <span>{{ item.quantity }}</span>
+                    <button type="submit" name="action" value="increment">+</button>
+                </form>
+            </div>
         </div>
-        <div>{{ item.product.price }} ₽</div>
         <div class="delete">
             <form action="{% url 'cart:delete_item' item.id %}" method="post">
                 {% csrf_token %}
@@ -46,8 +48,7 @@
         {% csrf_token %}
         {% for form in promocode_form %}
         {{ form }}
-
-        <button type="submit" name="action" value="apply_promocode">Применить</button>
+        <button type="submit" class="button btn-primary" name="action" value="apply_promocode">Применить</button>
     </form>
     <p style="color: brown">{{ promocode_response }}</p>
     {% endfor %}

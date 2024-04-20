@@ -26,9 +26,9 @@
             <div class="quantity">
                 <form action="{% url 'cart:update_cart' item.id %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" name="action" style="margin-right: -5px;" value="decrement">-</button>
+                    <button type="submit" name="action" value="decrement">-</button>
                     <span>{{ item.quantity }}</span>
-                    <button type="submit" name="action" style="margin-left: -5px;" value="increment">+</button>
+                    <button type="submit" name="action" value="increment">+</button>
                 </form>
             </div>
             <div style="margin-top: 7px;">{{ item.product.price }} ₽</div>

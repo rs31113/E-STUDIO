@@ -12,37 +12,35 @@
 {% include 'header.html' %}
 <body>
 
-<div class="container">
+<div class="container product-card">
     <div class="row">
-        <div class="col-md-6">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="col-md-6 carousel-container">
+            <div id="productCarousel" class="carousel">
                 <div class="carousel-inner">
                     {% for photo in product.photos.all %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ photo.image.url }}" class="d-block w-100" alt="{{ product.name }}" data-bs-toggle="modal" data-bs-target="#carouselModal">
+                        <img src="{{ photo.image.url }}" class="carousel-image" alt="Image of {{ product.name }}">
                     </div>
                     {% endfor %}
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                <button class="carousel-control-prev" onclick="prevSlide()">
+                    <span aria-hidden="true">&laquo;</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                <button class="carousel-control-next" onclick="nextSlide()">
+                    <span aria-hidden="true">&raquo;</span>
                 </button>
             </div>
-            <div class="thumbnail-container" id="thumbnail-container">
+
+            <div class="thumbnail-container mt-3">
                 {% for photo in product.photos.all %}
-                <div class="thumbnail" onclick="changeSlide({{ forloop.counter0 }})">
-                    <img src="{{ photo.image.url }}" class="thumbnail-img">
-                </div>
+                <img src="{{ photo.image.url }}" class="thumbnail" onclick="changeCarouselSlide({{ forloop.counter0 }})">
                 {% endfor %}
             </div>
         </div>
+
         <div class="col-md-6 card-content">
-            <h2>{{ product.name }}</h2>
-            <p>{{ product.price }} ₽</p>
+            <h2 style="font-weight: bold;">{{ product.name }}</h2>
+            <p style="font-size: 20px;">{{ product.price }} ₽</p>
             <p>{{ product.description|safe }}</p>
             <div class="size-selector">
                 {% for size in product.sizes.all %}
@@ -54,44 +52,23 @@
             <form action="{% url 'cart:add_item' product.article %}" method="post" id="add-to-cart-form">
                 {% csrf_token %}
                 <input type="hidden" name="size" id="selected-size">
-                <button type="submit" id="add-to-cart-button" class="btn btn-primary mt-3">В корзину</button>
+                <button type="submit" id="add-to-cart-button" class="btn btn-primary mt-3" disabled>В корзину</button>
             </form>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="carouselModal" tabindex="-1" aria-labelledby="carouselModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div id="carouselExampleIndicatorsModal" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for photo in product.photos.all %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <img src="{{ photo.image.url }}" class="d-block w-100 h-100" alt="{{ product.name }}">
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicatorsModal" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicatorsModal" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+<div id="modal-container" class="modal-container">
+    <span class="close-btn" id="close-btn">&#10007;</span>
+    <div id="modal-content" class="modal-content">
+        <img src="" alt="" id="modal-image">
+        <span class="prev-btn" id="prev-btn">&#8592;</span>
+        <span class="next-btn" id="next-btn">&#8594;</span>
     </div>
 </div>
 
-
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/product_detail.js' %}"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-+t6EJvh6A0rGHPbmRDmeaURy2v7I6YcrNDzZgP0h+26M3gjn1UiyAx0us+rJ/g5J" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha384-gtEjrD/Se65CawNgdUxp6qsmrJ7tIVsNcwC8Bf7iwqu0kKCx6Tkxy5gFYDGY3S+3" crossorigin="anonymous"></script>
 
 </body>
 {% include 'footer.html' %}

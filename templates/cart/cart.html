@@ -28,7 +28,7 @@
                     {% csrf_token %}
                     <button type="submit" name="action" value="decrement">-</button>
                     <span>{{ item.quantity }}</span>
-                    <button type="submit" name="action" value="increment">+</button>
+                    <button type="submit" name="action" value="increment" {% if disable_increment %}disabled{% endif %}>+</button>
                 </form>
             </div>
             <div style="margin-top: 7px;">{{ item.product.price }} ₽</div>

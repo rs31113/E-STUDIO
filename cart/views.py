@@ -1,10 +1,12 @@
 from django.views.generic.base import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse
-from cart.models import CartItem, Delivery, Promocode
-from shop.models import Product
+from cart.models import CartItem, Delivery, Promocode, Order
+from shop.models import Product, ProductSize, Size
 import cart.forms
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 class AddToCart(View):
@@ -41,9 +43,19 @@ class ViewCart(View):
         delivery_info_form = cart.forms.DeliveryInfoForm()
         promocode_form = cart.forms.PromocodeForm()
         total_price = sum(item.product.price * item.quantity for item in cart_items)
+        disable_increment = False
+
+        for product in cart_items:
+            item = Product.objects.get(id=product.product.id)
+            size = product.size.strip()
+            size = Size.objects.get(name=size)
+            product_size = ProductSize.objects.get(product=item, size=size)
+            if product_size.quantity == product.quantity:
+                disable_increment = True
 
         context = {
             "cart_items": cart_items,
+            "disable_increment": disable_increment,
             "deliveries": deliveries,
             "contact_info": contact_info_form,
             "delivery_info": delivery_info_form,
@@ -99,9 +111,46 @@ class ViewCart(View):
         elif action == "new_order":
             contact_info_form = cart.forms.ContactInfoForm(request.POST)
             delivery_info_form = cart.forms.DeliveryInfoForm(request.POST)
-            if contact_info_form.is_valid() and delivery_info_form.is_valid():
-                delivery_id = request.POST.get("delivery")
-                return render(request, "cart/order_success.html")
+            delivery_id = request.POST.get("delivery")
+
+            if contact_info_form.is_valid() and delivery_info_form.is_valid() and delivery_id:
+                session_id = request.session.session_key
+                cart_items = CartItem.objects.filter(session_id=session_id)
+                total_price = sum(item.product.price * item.quantity for item in cart_items)
+                delivery_method = Delivery.objects.filter(id=delivery_id).first().name
+
+                new_order = Order.objects.create(
+                    contact_info=contact_info_form.cleaned_data,
+                    delivery_info=delivery_info_form.cleaned_data,
+                    total_price=total_price,
+                    delivery_method=delivery_method,
+                )
+
+                for product in cart_items:
+                    item = Product.objects.get(id=product.product.id)
+                    new_order.products.add(item)
+                    size = product.size.strip()
+                    size = Size.objects.get(name=size)
+                    product_size = ProductSize.objects.get(product=item, size=size)
+                    product_size.quantity -= product.quantity
+
+                    product_size.save()
+
+                new_order.save()
+                cart_items.delete()
+
+                context = {
+                    "order_id": new_order.id,
+                }
+
+                customer_email = request.POST.get("email")
+                subject = "Подтверждение заказа"
+                message = f"Здравствуйте! Заказ № {new_order.id} принят."
+                from_email = settings.DEFAULT_FROM_EMAIL
+                recipient_list = [customer_email]
+                send_mail(subject, message, from_email, recipient_list)
+
+                return render(request, "cart/order_success.html", context)
 
             session_id = request.session.session_key
             cart_items = CartItem.objects.filter(session_id=session_id)

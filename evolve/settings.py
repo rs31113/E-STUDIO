@@ -10,6 +10,14 @@ POSTGRES_DATABASE = os.getenv("POSTGRES_DATABASE", "evolve_db")
 POSTGRES_USERNAME = os.getenv("POSTGRES_USERNAME", "ruslanshafikov")
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "rs1719")
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "mail.hosting.reg.ru"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "noreply@e-studio.store"
+EMAIL_HOST_PASSWORD = "Notorious21052200"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "noreply@e-studio.store"
+
 
 SECRET_KEY = "django-insecure-)ea3m6rst^z=!=h7(p=xkl#evf83o#u050z9gh(e275&cybjiv"
 

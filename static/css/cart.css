@@ -37,6 +37,16 @@
     background-color: lightgray;
 }
 
+.quantity button:disabled {
+    color: lightgray;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.quantity button:disabled:hover {
+    background-color: white;
+}
+
 .line-top,
 .line-bottom {
     border: none;

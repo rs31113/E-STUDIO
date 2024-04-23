@@ -13,7 +13,18 @@
 <body>
 
 <div class="container">
-    <p>to be continued...</p>
+    {% if answers %}
+        <ul>
+            {% for answer in answers %}
+                <li>
+                    <h3>{{ answer.question }}</h3>
+                    <p>{{ answer.answer }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>To be continued...</p>
+    {% endif %}
 </div>
 
 </body>

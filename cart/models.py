@@ -27,4 +27,17 @@ class Promocode(models.Model):
     expiration_date = models.DateField()
 
 
+class Order(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    products = models.ManyToManyField(Product)
+    contact_info = models.JSONField()
+    delivery_info = models.JSONField()
+    delivery_method = models.CharField(max_length=50)
+
+    total_price = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"Order №{self.id}"
+
+
 __all__ = ()

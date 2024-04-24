@@ -18,5 +18,20 @@ class ProductDetailView(django.views.generic.DetailView):
         article = self.kwargs["article"]
         return get_object_or_404(shop.models.Product, article=article)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        product = context[self.context_object_name]
+
+        available_sizes = dict()
+        for product_size in shop.models.ProductSize.objects.filter(product=product):
+            available_sizes[product_size.size.name] = {
+                "quantity": product_size.quantity,
+                "disabled": product_size.quantity == 0
+            }
+        context["available_sizes"] = available_sizes
+
+        return context
+
 
 __all__ = ()

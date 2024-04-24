@@ -12,6 +12,7 @@ from django.conf import settings
 class AddToCart(View):
     def post(self, request, article):
         size = request.POST.get("size")
+        quantity = request.POST.get("quantity")
 
         if not request.session.session_key:
             request.session.create()
@@ -23,6 +24,7 @@ class AddToCart(View):
             product=product,
             size=size,
             session_id=session_id,
+            quantity=quantity,
         )
 
         if not created:

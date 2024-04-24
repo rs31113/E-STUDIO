@@ -33,21 +33,14 @@ document.querySelectorAll('.thumbnail').forEach((thumbnail, index) => {
 });
 
 function selectSize(option) {
-    // Сбросить выбор у всех размеров
     let options = document.querySelectorAll('.size-option');
     options.forEach(function(item) {
         item.classList.remove('selected');
     });
 
-    // Установить выбор для текущего размера
     option.classList.add('selected');
 
-    // Установить выбранный размер в скрытое поле формы
     document.getElementById('selected-size').value = option.textContent;
-
-    // Активировать кнопку "В корзину" после выбора размера
-    const addToCartButton = document.getElementById('add-to-cart-button');
-    addToCartButton.disabled = false;
 }
 
 
@@ -98,3 +91,52 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+const decreaseButton = document.querySelector('.decrease-quantity');
+const increaseButton = document.querySelector('.increase-quantity');
+const quantityDisplay = document.querySelector('.quantity-display');
+const quantityInput = document.querySelector('.quantity-input');
+
+const maxQuantity = 10;
+
+function updateQuantity(newQuantity) {
+    if (newQuantity < 1) {
+        newQuantity = 1;
+    } else if (newQuantity > maxQuantity) {
+        newQuantity = maxQuantity;
+    }
+
+    quantityDisplay.textContent = newQuantity;
+    quantityInput.value = newQuantity;
+
+    increaseButton.disabled = (newQuantity >= maxQuantity);
+
+    decreaseButton.disabled = (newQuantity <= 1);
+}
+
+decreaseButton.addEventListener('click', () => {
+    let currentQuantity = parseInt(quantityDisplay.textContent, 10);
+    if (currentQuantity > 1) {
+        updateQuantity(currentQuantity - 1);
+    }
+});
+
+increaseButton.addEventListener('click', () => {
+    let currentQuantity = parseInt(quantityDisplay.textContent, 10);
+    if (currentQuantity < maxQuantity) {
+        updateQuantity(currentQuantity + 1);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const sizeOptions = document.querySelectorAll('.size-option');
+
+    for (let i = 0; i < sizeOptions.length; i++) {
+        const option = sizeOptions[i];
+        if (!option.classList.contains('disabled')) {
+            selectSize(option);
+            option.classList.add('selected');
+            document.getElementById('selected-size').value = option.textContent;
+            break;
+        }
+    }
+});

@@ -27,7 +27,7 @@ class ProductDetailView(django.views.generic.DetailView):
         for product_size in shop.models.ProductSize.objects.filter(product=product):
             available_sizes[product_size.size.name] = {
                 "quantity": product_size.quantity,
-                "disabled": product_size.quantity == 0
+                "disabled": product_size.quantity == 0,
             }
         context["available_sizes"] = available_sizes
 

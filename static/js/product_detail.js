@@ -1,4 +1,5 @@
 const carousel = document.getElementById('productCarousel');
+let maxQuantity = 1;
 const carouselItems = carousel.getElementsByClassName('carousel-item');
 let currentSlideIndex = 0;
 
@@ -41,6 +42,8 @@ function selectSize(option) {
     option.classList.add('selected');
 
     document.getElementById('selected-size').value = option.textContent;
+
+    maxQuantity = parseInt(option.getAttribute('data-quantity'));
 }
 
 
@@ -96,7 +99,6 @@ const increaseButton = document.querySelector('.increase-quantity');
 const quantityDisplay = document.querySelector('.quantity-display');
 const quantityInput = document.querySelector('.quantity-input');
 
-const maxQuantity = 10;
 
 function updateQuantity(newQuantity) {
     if (newQuantity < 1) {

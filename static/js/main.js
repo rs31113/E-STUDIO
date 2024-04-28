@@ -17,7 +17,7 @@ function handleScroll(event) {
         }, 500);
     } else if (window.scrollY === 0 && (event.deltaY < 0 || event.touches)) {
         document.getElementById("e-studio").style.fontSize = "10vw";
-        document.getElementById("e-studio").style.marginTop = "150px";
+        document.getElementById("e-studio").style.marginTop = "35vh";
         document.querySelector(".container").style.opacity = "0";
         document.querySelector(".footer").style.opacity = "0";
         document.getElementById("arrow-down").style.opacity = "1";

@@ -46,3 +46,12 @@ html, body {
     justify-content: center;
     align-items: center;
 }
+
+.out-of-stock img {
+    filter: brightness(70%) !important;
+}
+
+.out-of-stock .card-title,
+.out-of-stock .card-price {
+    color: lightgray;
+}

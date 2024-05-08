@@ -4,7 +4,7 @@ body {
 
 .photo-grid {
     margin-top: 20px;
-    padding: 0px 100px 0px 100px;
+    padding: 0px 50px 0px 50px;
 }
 
 .text-center {
@@ -13,8 +13,27 @@ body {
     margin-bottom: 40px;
 }
 
-.collection-container {
+.gallery-container {
     margin-top: 110px;
+}
+
+.collection-container {
+    margin-top: 50px;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+.collection-divider {
+    width: 60%;
+    height: 1px;
+    background-color: lightgray;
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+}
+
+.collection-container:last-child .collection-divider {
+    display: none;
 }
 
 .photo {

@@ -4,7 +4,7 @@ from shop.models import Product
 
 class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    size = models.CharField()
+    size = models.CharField(max_length=50)
     quantity = models.PositiveIntegerField(default=1)
     session_id = models.CharField(max_length=50)
 

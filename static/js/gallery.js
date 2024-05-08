@@ -14,11 +14,13 @@ document.addEventListener('DOMContentLoaded', function () {
             modalImage.src = imgSrc;
             modalContainer.style.display = 'flex';
             currentPhotoIndex = index;
+            document.body.style.overflow = 'hidden';
         });
     });
 
     closeBtn.addEventListener('click', function () {
         modalContainer.style.display = 'none';
+        document.body.style.overflow = 'auto';
     });
 
     prevBtn.addEventListener('click', function () {
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             modalImage.src = photoTriggers[currentPhotoIndex].getAttribute('src');
         } else if (e.key === 'Escape') {
             modalContainer.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
     });
 });

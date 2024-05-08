@@ -80,7 +80,7 @@
             <div class="radio-container">
                 <label style="font-weight: bold; margin-bottom: -10px;">Способы доставки:</label><br>
                 {% for delivery in deliveries %}
-                <input type="radio" id="option{{ delivery.id }}" name="delivery" value="{{ delivery.id }}">
+                <input type="radio" id="option{{ delivery.id }}" name="delivery" value="{{ delivery.id }}" {% if forloop.first %}checked{% endif %}>
                 <label for="option{{ delivery.id }}">{{ delivery.name }} - {{ delivery.price }} ₽</label><br>
                 {% endfor %}
             </div>

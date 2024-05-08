@@ -10,6 +10,9 @@ class Product(models.Model):
     sizes = models.ManyToManyField("Size", through="ProductSize")
     photos = models.ManyToManyField("Photo")
 
+    def is_out_of_stock(self):
+        return all(product_size.quantity == 0 for product_size in self.productsize_set.all())
+
     def __str__(self):
         return self.name
 

@@ -2,6 +2,7 @@ asgiref==3.8.1
 Django==4.2.11
 django-ckeditor-5==0.2.12
 django-js-asset==2.2.0
+django-robokassa-payments==1.3.3
 gunicorn==21.2.0
 packaging==24.0
 pillow==10.3.0

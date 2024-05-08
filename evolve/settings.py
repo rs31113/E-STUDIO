@@ -4,12 +4,6 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
-POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
-POSTGRES_DATABASE = os.getenv("POSTGRES_DATABASE", "evolve_db")
-POSTGRES_USERNAME = os.getenv("POSTGRES_USERNAME", "ruslanshafikov")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "rs1719")
-
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "mail.hosting.reg.ru"
 EMAIL_PORT = 587
@@ -24,7 +18,7 @@ SECRET_KEY = "django-insecure-)ea3m6rst^z=!=h7(p=xkl#evf83o#u050z9gh(e275&cybjiv
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["www.e-studio.store", "e-studio.store"]
 
 
 INSTALLED_APPS = [
@@ -42,6 +36,7 @@ INSTALLED_APPS = [
     "faq",
     "terms",
     "django_ckeditor_5",
+    "robokassa",
 ]
 
 MIDDLEWARE = [
@@ -79,12 +74,11 @@ WSGI_APPLICATION = "evolve.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "railway",
-        "USER": "postgres",
-        "PASSWORD": "LiTjfLUrbUMMXiKlLpNovmHkoGOfdKbM",
-        "HOST": "monorail.proxy.rlwy.net",
-        "PORT": "47181",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "u2608216_default",
+        "USER": "u2608216_default",
+        "PASSWORD": "G3j1AjANR0jn9Uc3",
+        "HOST": "localhost",
     }
 }
 
@@ -132,10 +126,6 @@ CKEDITOR_5_CONFIGS = {
         "width": 800,
     },
 }
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://evolve.up.railway.app",
-]
 
 CKEDITOR_5_CONFIGS = {
     "default": {

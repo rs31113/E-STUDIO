@@ -43,7 +43,15 @@ function selectSize(option) {
 
     document.getElementById('selected-size').value = option.textContent;
 
+    document.querySelector('.quantity-input').value = 1;
+    document.querySelector('.quantity-display').textContent = 1;
     maxQuantity = parseInt(option.getAttribute('data-quantity'));
+
+    const decreaseButton = document.querySelector('.decrease-quantity');
+    const increaseButton = document.querySelector('.increase-quantity');
+
+    decreaseButton.disabled = (1 <= 1);
+    increaseButton.disabled = (1 >= maxQuantity);
 }
 
 
@@ -142,3 +150,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+const notification = document.getElementById("notification");
+        if (notification) {
+            setTimeout(() => {
+                notification.classList.add('show-notification');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.remove('show-notification');
+            }, 5000);
+        }

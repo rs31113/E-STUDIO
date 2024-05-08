@@ -4,8 +4,10 @@ from django.http import JsonResponse, HttpResponse
 from cart.models import CartItem, Delivery, Promocode, Order
 from shop.models import Product, ProductSize, Size
 import cart.forms
+from django.contrib import messages
 from django.utils import timezone
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 from django.conf import settings
 
 
@@ -30,7 +32,11 @@ class AddToCart(View):
         if not created:
             cart_item.quantity += 1
             cart_item.save()
+
         request.session.modified = True
+
+        messages.success(request, f"Товар успешно добавлен в корзину!")
+
         return redirect("shop:product_detail", article=article)
 
 
@@ -68,6 +74,7 @@ class ViewCart(View):
 
     def post(self, request):
         action = request.POST["action"]
+        discount = 0
         if action == "apply_promocode":
             promocode_form = cart.forms.PromocodeForm(request.POST)
             if promocode_form.is_valid():
@@ -118,8 +125,9 @@ class ViewCart(View):
             if contact_info_form.is_valid() and delivery_info_form.is_valid() and delivery_id:
                 session_id = request.session.session_key
                 cart_items = CartItem.objects.filter(session_id=session_id)
-                total_price = sum(item.product.price * item.quantity for item in cart_items)
+                total_price = sum(item.product.price * item.quantity for item in cart_items) - discount
                 delivery_method = Delivery.objects.filter(id=delivery_id).first().name
+                delivery_price = Delivery.objects.filter(id=delivery_id).first().price
 
                 new_order = Order.objects.create(
                     contact_info=contact_info_form.cleaned_data,
@@ -139,18 +147,32 @@ class ViewCart(View):
                     product_size.save()
 
                 new_order.save()
-                cart_items.delete()
 
+                customer_name = request.POST.get("name")
                 context = {
                     "order_id": new_order.id,
+                    "name": customer_name,
+                    "items": cart_items,
+                    "total_price": total_price,
+                    "amount": total_price + delivery_price,
+                    "delivery_method": delivery_method,
+                    "delivery_price": delivery_price,
                 }
 
                 customer_email = request.POST.get("email")
                 subject = "Подтверждение заказа"
-                message = f"Здравствуйте! Заказ № {new_order.id} принят."
+                message = render_to_string("emails/order_confirmation_email.html", context)
                 from_email = settings.DEFAULT_FROM_EMAIL
                 recipient_list = [customer_email]
-                send_mail(subject, message, from_email, recipient_list)
+                email = EmailMessage(
+                    subject=subject,
+                    body=message,
+                    from_email=from_email,
+                    to=recipient_list,
+                )
+                email.content_subtype = "html"
+                cart_items.delete()
+                email.send(fail_silently=False)
 
                 return render(request, "cart/order_success.html", context)
 
@@ -175,10 +197,13 @@ class UpdateCart(View):
     def post(self, request, cart_item_id):
         try:
             cart_item = CartItem.objects.get(id=cart_item_id)
+            session_id = request.session.session_key
             action = request.POST.get("action")
             if cart_item.quantity == 1 and action == "decrement":
                 cart_item.delete()
-                return render(request, "cart/empty_cart.html")
+                user_cart = CartItem.objects.filter(session_id=session_id)
+                if not user_cart.exists():
+                    return render(request, "cart/empty_cart.html")
             else:
                 if action == "increment":
                     cart_item.quantity += 1

@@ -218,7 +218,6 @@ html, body {
     font-size: 16px;
 }
 
-
 .description::before {
     content: "";
     display: block;
@@ -226,4 +225,24 @@ html, body {
     height: 1px;
     background-color: black;
     margin-top: 20px;
+}
+
+.notification {
+    font-family: Courier New, monospace;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #1D8348;
+    color: white;
+    border-radius: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.show-notification {
+    font-family: Courier New, monospace;
+    opacity: 1;
+    visibility: visible;
 }

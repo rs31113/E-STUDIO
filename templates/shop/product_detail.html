@@ -60,7 +60,13 @@
                 {% csrf_token %}
                 <input type="hidden" name="size" id="selected-size">
                 <input type="hidden" name="quantity" class="quantity-input" value="1">
-                <button type="submit" id="add-to-cart-button" class="btn btn-primary mt-3">В корзину</button>
+                <button type="submit" id="add-to-cart-button" class="btn btn-primary mt-3 {% if product.is_out_of_stock or all_disabled %}disabled{% endif %}">
+                    {% if product.is_out_of_stock or all_disabled %}
+                        Out of Stock
+                    {% else %}
+                        В корзину
+                    {% endif %}
+                </button>
             </form>
             <p class="description">{{ product.description|safe }}</p>
         </div>
@@ -75,6 +81,14 @@
         <span class="next-btn" id="next-btn">&#8594;</span>
     </div>
 </div>
+
+{% if messages %}
+    <div class="notification" id="notification">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/product_detail.js' %}"></script>

@@ -14,18 +14,19 @@
 
 
 <div class="gallery-container">
-{% for collection in gallery %}
+{% for collection in gallery|dictsortreversed:"id" %}
 <div class="collection-container">
     <h2 class="text-center">{{ collection.name }}</h2>
     <div class="row photo-grid">
         {% for photo in collection.photos.all %}
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-6">
             <div class="photo">
                 <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="full-screen-trigger">
             </div>
         </div>
         {% endfor %}
     </div>
+    <div class="collection-divider"></div>
 </div>
 {% endfor %}
 </div>

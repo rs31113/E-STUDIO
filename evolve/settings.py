@@ -1,24 +1,41 @@
 import os
 from pathlib import Path
+import environ
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "mail.hosting.reg.ru"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "noreply@e-studio.store"
-EMAIL_HOST_PASSWORD = "Notorious21052200"
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "noreply@e-studio.store"
+env = environ.Env(
+    SECRET_KEY=(str, ""),
+    EMAIL_BACKEND=(str, "django.core.mail.backends.smtp.EmailBackend"),
+    EMAIL_HOST=(str, "mail.hosting.reg.ru"),
+    EMAIL_PORT=(int, 587),
+    EMAIL_HOST_USER=(str, ""),
+    EMAIL_HOST_PASSWORD=(str, ""),
+    EMAIL_USE_TLS=(bool, True),
+    DEFAULT_FROM_EMAIL=(str, ""),
+    DEBUG=(bool, False),
+    ALLOWED_HOSTS=(list, ["www.e-studio.store", "e-studio.store"]),
+    DB_NAME=(str, ""),
+    DB_USER=(str, ""),
+    DB_PASSWORD=(str, ""),
+)
+
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
 
-SECRET_KEY = "django-insecure-)ea3m6rst^z=!=h7(p=xkl#evf83o#u050z9gh(e275&cybjiv"
+SECRET_KEY = env("SECRET_KEY")
 
 
-DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["www.e-studio.store", "e-studio.store"]
+ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
 
 INSTALLED_APPS = [
@@ -75,9 +92,9 @@ WSGI_APPLICATION = "evolve.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "u2608216_default",
-        "USER": "u2608216_default",
-        "PASSWORD": "G3j1AjANR0jn9Uc3",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
         "HOST": "localhost",
     }
 }
@@ -125,12 +142,4 @@ CKEDITOR_5_CONFIGS = {
         "height": 300,
         "width": 800,
     },
-}
-
-CKEDITOR_5_CONFIGS = {
-    "default": {
-        "toolbar": ["heading", "|", "bold", "italic", "link",
-                    "bulletedList", "numberedList", "blockQuote", "imageUpload", ],
-
-    }
 }

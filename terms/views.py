@@ -10,7 +10,7 @@ class TermsView(django.views.generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        offer = get_object_or_404(terms.models.Offer, pk=2)
+        offer = get_object_or_404(terms.models.Offer, name="public offer")
         context[self.context_object_name] = offer
         return context
 

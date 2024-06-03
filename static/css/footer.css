@@ -4,6 +4,7 @@ footer {
 }
 
 .footer-buttons,
+.signature,
 .text {
     display: flex;
     flex-wrap: wrap;
@@ -24,5 +25,15 @@ footer {
 }
 
 .footer-buttons a:hover {
+    color: gray;
+}
+
+.signature {
+    color: lightgray;
+    font-size: 10px;
+}
+
+.signature-link {
+    text-decoration: none;
     color: gray;
 }

@@ -1,4 +1,4 @@
-# e-stúdio Online Store
+# E-STÚDIO
 
 e-stúdio is an online store developed for a budding Russian clothing brand. This project encompasses all aspects of web development, from design to deployment.
 
@@ -16,6 +16,7 @@ The e-stúdio website is designed and developed to meet the unique needs and vis
 - **Hosting:** Deployed on reg.ru, a popular Russian hosting service.
 - **Admin Panel:** Django's admin panel allows for easy management of the site without requiring programming skills.
 - **SEO Optimized:** Includes an indexed sitemap and SEO best practices for better search engine visibility.
+- **Order Confirmation Emails:** Integrated email functionality that sends a confirmation email to customers upon successful order placement.
 - **Error-Free:** Extensively tested to ensure a smooth user experience and prevent errors.
 
 ## Upcoming Features
@@ -29,6 +30,7 @@ The e-stúdio website is designed and developed to meet the unique needs and vis
 - **Front-End:** HTML, CSS, JavaScript
 - **Database:** MySQL
 - **Hosting:** reg.ru
+- **Testing Environment:** Railway for hosting and databases during development.
 
 ## How to Access
 
@@ -49,4 +51,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ---
 
-For any inquiries or support, please contact us at [support@e-studio.store](mailto:support@e-studio.store).
+For any inquiries or support, please contact me at [rs31113@yandex.ru](mailto:rs31113@yandex.ru) or via Telegram [@rs31113](https://t.me/rs31113).

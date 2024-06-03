@@ -11,7 +11,7 @@ The e-stúdio website is designed and developed to meet the unique needs and vis
 - **Custom Design:** Collaboratively designed with the brand owner to reflect the brand's identity.
 - **Complete Development:** Full-stack development covering front-end, back-end, and deployment.
 - **Django Framework:** Built using Django, a robust and scalable Python web framework.
-- **Responsive Design:** HTML, CSS, and JavaScript used to create a responsive and user-friendly interface.
+- **Responsive Design:** HTML, CSS, and JavaScript used to create a responsive and user-friendly interface that works seamlessly on all devices, from desktops to mobile phones.
 - **Database Management:** Utilizes MySQL for efficient data storage and management.
 - **Hosting:** Deployed on reg.ru, a popular Russian hosting service.
 - **Admin Panel:** Django's admin panel allows for easy management of the site without requiring programming skills.

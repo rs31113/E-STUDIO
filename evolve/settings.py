@@ -7,19 +7,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
     SECRET_KEY=(str, ""),
-    EMAIL_BACKEND=(str, "django.core.mail.backends.smtp.EmailBackend"),
-    EMAIL_HOST=(str, "mail.hosting.reg.ru"),
+    EMAIL_BACKEND=(str, ""),
+    EMAIL_HOST=(str, ""),
     EMAIL_PORT=(int, 587),
     EMAIL_HOST_USER=(str, ""),
     EMAIL_HOST_PASSWORD=(str, ""),
     EMAIL_USE_TLS=(bool, True),
     DEFAULT_FROM_EMAIL=(str, ""),
     DEBUG=(bool, False),
-    ALLOWED_HOSTS=(list, ["www.e-studio.store", "e-studio.store"]),
+    ALLOWED_HOSTS=(list, ["127.0.0.1"]),
     DB_NAME=(str, ""),
     DB_USER=(str, ""),
     DB_PASSWORD=(str, ""),
+    DB_ENGINE=(str, ""),
+    DB_PORT=(str, ""),
+    DB_HOST=(str, "localhost")
 )
+
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 EMAIL_HOST = env("EMAIL_HOST")
@@ -91,11 +96,12 @@ WSGI_APPLICATION = "evolve.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": env("DB_ENGINE"),
         "NAME": env("DB_NAME"),
         "USER": env("DB_USER"),
         "PASSWORD": env("DB_PASSWORD"),
-        "HOST": "localhost",
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
     }
 }
 

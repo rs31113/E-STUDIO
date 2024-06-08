@@ -15,9 +15,10 @@
             <li>{{ item.product.name }} - {{ item.size }} - {{ item.quantity }} шт. - {{ item.product.price }} ₽</li>
         {% endfor %}
     </ul>
-    <p><strong>Платежная информация:<strong></p>
+    <p><strong>Платежная информация:</strong></p>
     <p>
-        Сумма: {{ total_price }} ₽<br>
+        Сумма со скидкой: {{ total_price }} ₽<br>
+        Скидка: {{ discount }} %<br>
         Доставка ({{ delivery_method }}): {{ delivery_price }} ₽<br>
         <strong>Всего: {{ amount }} ₽</strong>
     </p>

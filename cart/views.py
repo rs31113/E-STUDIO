@@ -11,6 +11,9 @@ from django.template.loader import render_to_string
 from django.conf import settings
 
 
+discount = 0
+
+
 class AddToCart(View):
     def post(self, request, article):
         size = request.POST.get("size")
@@ -74,7 +77,7 @@ class ViewCart(View):
 
     def post(self, request):
         action = request.POST["action"]
-        discount = 0
+        global discount
         if action == "apply_promocode":
             promocode_form = cart.forms.PromocodeForm(request.POST)
             if promocode_form.is_valid():
@@ -125,7 +128,8 @@ class ViewCart(View):
             if contact_info_form.is_valid() and delivery_info_form.is_valid() and delivery_id:
                 session_id = request.session.session_key
                 cart_items = CartItem.objects.filter(session_id=session_id)
-                total_price = sum(item.product.price * item.quantity for item in cart_items) - discount
+                total_price = sum(item.product.price * item.quantity for item in cart_items)
+                total_price = total_price - int(total_price * discount)
                 delivery_method = Delivery.objects.filter(id=delivery_id).first().name
                 delivery_price = Delivery.objects.filter(id=delivery_id).first().price
 
@@ -149,15 +153,18 @@ class ViewCart(View):
                 new_order.save()
 
                 customer_name = request.POST.get("name")
+                discount *= 100
                 context = {
                     "order_id": new_order.id,
                     "name": customer_name,
+                    "discount": discount,
                     "items": cart_items,
                     "total_price": total_price,
                     "amount": total_price + delivery_price,
                     "delivery_method": delivery_method,
                     "delivery_price": delivery_price,
                 }
+                discount = 0
 
                 customer_email = request.POST.get("email")
                 subject = "Подтверждение заказа"

@@ -49,6 +49,6 @@ This project is licensed under the MIT License. See the LICENSE file for details
 - Special thanks to the brand owner for their vision and collaboration.
 - Django community for their excellent documentation and support.
 
----
+## Contacts
 
 For any inquiries or support, please contact me at [rs31113@yandex.ru](mailto:rs31113@yandex.ru) or via Telegram [@rs31113](https://t.me/rs31113).

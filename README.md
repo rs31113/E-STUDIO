@@ -38,7 +38,7 @@ The website is live and can be accessed at: [https://e-studio.store](https://e-s
 
 ## Contributing
 
-This repository is private and intended for demonstration purposes. If you have access and wish to suggest improvements, please contact us directly.
+This repository is private and intended for demonstration purposes. If you have access and wish to suggest improvements, please contact me directly.
 
 ## License
 

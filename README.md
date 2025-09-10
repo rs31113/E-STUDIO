@@ -1,6 +1,6 @@
 # E-STÚDIO
 
-e-stúdio is an online store developed for a budding Russian clothing brand. This project encompasses all aspects of web development, from design to deployment.
+E-stúdio is an online store developed for a budding Russian clothing brand. This project encompasses all aspects of web development, from design to deployment.
 
 ## Project Overview
 

@@ -35,6 +35,7 @@ The e-stúdio website is designed and developed to meet the unique needs and vis
 ## How to Access
 
 The website is live and can be accessed at: [https://e-studio.store](https://e-studio.store)
+! Update (September 2025): The website has been taken offline due to the closure of the brand.
 
 ## Contributing
 
@@ -51,4 +52,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Contacts
 
-For any inquiries or support, please contact me at [rs31113@yandex.ru](mailto:rs31113@yandex.ru) or via Telegram [@rs31113](https://t.me/rs31113).
+For any inquiries or support, please contact me at [rs31113@yandex.ru](mailto:rs31113@yandex.ru) or via Telegram [@rrshafikov](https://t.me/rrshafikov).
